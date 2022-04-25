@@ -103,7 +103,7 @@ namespace AddressBookSystemADO
                     sqlCommand.Parameters.AddWithValue("@PhoneNumber", address.PhoneNumber);
                     sqlCommand.Parameters.AddWithValue("@Email", address.Email);
                     sqlCommand.Parameters.AddWithValue("@AddressBookName", address.AddressBookName);
-                    sqlCommand.Parameters.AddWithValue("@Type", address.Type);                    
+                    sqlCommand.Parameters.AddWithValue("@Type", address.Type);
                     sqlConnection.Open();
 
                     var result = sqlCommand.ExecuteNonQuery();
@@ -118,6 +118,35 @@ namespace AddressBookSystemADO
             catch (Exception)
             {
                 throw new AddressException(AddressException.ExceptionType.Contact_Not_Add, "Contact are not added");
+            }
+        }
+        public bool EditContact(AddressBook address)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand("dbo.spEditContact", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@First_Name", address.First_Name);
+                    command.Parameters.AddWithValue("@Last_Name", address.Last_Name);
+                    command.Parameters.AddWithValue("@Address", address.Address);                    
+                    command.Parameters.AddWithValue("@City", address.City);
+                    command.Parameters.AddWithValue("@State", address.State);
+                    connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    connection.Close();
+                    if (result != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                throw new AddressException(AddressException.ExceptionType.Contact_Not_Add, "not add");
+                return false;
             }
         }
     }
