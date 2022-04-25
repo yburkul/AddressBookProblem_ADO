@@ -68,9 +68,9 @@ namespace AddressBookSystemADO
                             address.PhoneNumber = reader.GetInt64(7);
                             address.Email = reader.GetString(8);
                             address.Type = reader.GetString(9);
-                            address.Name = reader.GetString(10);
+                            address.AddressBookName = reader.GetString(10);
                             Console.WriteLine(address.ID + "," + address.First_Name + "," + address.Last_Name + "," + address.Address + "," + address.City + ","
-                                + address.State + "," + address.Zip + "," + address.PhoneNumber + "," + address.Email + "," + address.Type + "," + address.Name);
+                                + address.State + "," + address.Zip + "," + address.PhoneNumber + "," + address.Email + "," + address.Type + "," + address.AddressBookName);
                         }
                     }
                     else
@@ -85,7 +85,40 @@ namespace AddressBookSystemADO
                 Console.WriteLine(e.Message);
 
             }
+        }
+        public bool AddContact(AddressBook address)
+        {
+            try
+            {
+                using (sqlConnection)
+                {
+                    SqlCommand sqlCommand = new SqlCommand("Add_AddressBookContact", sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddWithValue("@First_Name", address.First_Name);
+                    sqlCommand.Parameters.AddWithValue("@Last_Name", address.Last_Name);
+                    sqlCommand.Parameters.AddWithValue("@Address", address.Address);
+                    sqlCommand.Parameters.AddWithValue("@City", address.City);
+                    sqlCommand.Parameters.AddWithValue("@State", address.State);
+                    sqlCommand.Parameters.AddWithValue("@Zip", address.Zip);
+                    sqlCommand.Parameters.AddWithValue("@PhoneNumber", address.PhoneNumber);
+                    sqlCommand.Parameters.AddWithValue("@Email", address.Email);
+                    sqlCommand.Parameters.AddWithValue("@AddressBookName", address.AddressBookName);
+                    sqlCommand.Parameters.AddWithValue("@Type", address.Type);                    
+                    sqlConnection.Open();
 
+                    var result = sqlCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                    if (result != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                throw new AddressException(AddressException.ExceptionType.Contact_Not_Add, "Contact are not added");
+            }
         }
     }
 }

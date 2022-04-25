@@ -18,6 +18,6 @@ namespace AddressBookSystemADO
         public double PhoneNumber { get; set; }
         public string Email { get; set; }
         public string Type { get; set; }
-        public string Name { get; set; }
+        public string AddressBookName { get; set; }
     }
 }
