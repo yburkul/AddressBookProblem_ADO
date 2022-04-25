@@ -12,7 +12,7 @@ namespace AddressBookSystemADO
         ExceptionType exceptionType;
         public enum ExceptionType
         {
-            Connection_Failed, Contact_Not_Add
+            Connection_Failed, Contact_Not_Add,Contact_Not_Edit,Contact_Not_Delete
         }
         public AddressException(ExceptionType exceptionType, string message) : base(message)
         {

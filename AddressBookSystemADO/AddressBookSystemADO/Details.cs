@@ -145,8 +145,32 @@ namespace AddressBookSystemADO
             }
             catch (Exception)
             {
-                throw new AddressException(AddressException.ExceptionType.Contact_Not_Add, "not add");
+                throw new AddressException(AddressException.ExceptionType.Contact_Not_Edit, "Contact not Edit");
                 return false;
+            }
+        }
+
+        public void RemoveContact(AddressBook address)
+        {
+            try
+            {
+                using(sqlConnection)
+                {
+                    SqlCommand command = new SqlCommand("dbo.spDeleteContactFormAddressBook", sqlConnection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@First_Name", address.First_Name);
+                    sqlConnection.Open();
+                    var result = command.ExecuteNonQuery();
+                    sqlConnection.Close();
+                    if(result != 0)
+                    {
+                        Console.WriteLine("Contact is Deleted");
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
     }
