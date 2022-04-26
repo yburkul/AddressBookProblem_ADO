@@ -16,3 +16,22 @@ BEGIN
 END
 GO
 select * from AddressBook
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+Alter PROCEDURE [spRetreiveTheData]
+@City varchar(50),
+@State varchar(50)
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+      select * from AddressBook where City = @City or State = @State
+END
+GO
+select * from AddressBook

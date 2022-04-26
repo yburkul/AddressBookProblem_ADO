@@ -18,6 +18,7 @@ namespace AddressBookSystemADO
                 Console.WriteLine("4: For Add a Contact");
                 Console.WriteLine("5: For Edit Contact");
                 Console.WriteLine("6: For Delete The Contact");
+                Console.WriteLine("7: For Retrieve the data By using City And State");
                 Console.WriteLine("0: For Exit");
                 option = int.Parse(Console.ReadLine());
                 switch (option)
@@ -88,12 +89,22 @@ namespace AddressBookSystemADO
                         details.EditContact(addressbook);
                         Console.WriteLine("Contact is Edited");
                         break;
-                        case 6:
+                      case 6:
                         AddressBook delete = new AddressBook();
                         Console.WriteLine("Enter a First Name For Delete The Contact");
                         string first_name = Console.ReadLine();
                         delete.First_Name= first_name;
                         details.RemoveContact(delete);
+                        break;
+                    case 7:
+                        AddressBook getData = new AddressBook();
+                        Console.Write("Enter the City Name:-");
+                        string cityname = Console.ReadLine();
+                        getData.City= cityname;
+                        Console.Write("Enter the State Name:-");
+                        string statename = Console.ReadLine();
+                        getData.State= statename;
+                        details.GetDataFromCityAndState(getData);
                         break;
                     case 0:
                         Console.WriteLine("Exit");
