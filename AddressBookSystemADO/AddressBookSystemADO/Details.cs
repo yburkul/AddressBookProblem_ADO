@@ -206,7 +206,6 @@ namespace AddressBookSystemADO
                                 + address.State + "," + address.Zip + "," + address.PhoneNumber + "," + address.Email + "," + address.Type + "," + address.AddressBookName);
                             Console.WriteLine("Count the Address");
                             Console.WriteLine(list.Count());
-
                         }
                     }
                     else
@@ -220,6 +219,42 @@ namespace AddressBookSystemADO
             {
                 Console.WriteLine(e.Message);
 
+            }
+        }
+        public void SortContactByUsingCity(AddressBook address)
+        {
+            using (sqlConnection)
+            {
+                List<AddressBook> list = new List<AddressBook>();
+                SqlCommand cmd = new SqlCommand("spSortAlphabetically", sqlConnection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue(@"City", address.City);
+                sqlConnection.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        address.ID = reader.GetInt32(0);
+                        address.First_Name = reader.GetString(1);
+                        address.Last_Name = reader.GetString(2);
+                        address.Address = reader.GetString(3);
+                        address.City = reader.GetString(4);
+                        address.State = reader.GetString(5);
+                        address.Zip = reader.GetInt64(6);
+                        address.PhoneNumber = reader.GetInt64(7);
+                        address.Email = reader.GetString(8);
+                        address.Type = reader.GetString(9);
+                        address.AddressBookName = reader.GetString(10);
+                        Console.WriteLine(address.ID + "," + address.First_Name + "," + address.Last_Name + "," + address.Address + "," + address.City + ","
+                            + address.State + "," + address.Zip + "," + address.PhoneNumber + "," + address.Email + "," + address.Type + "," + address.AddressBookName);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No Data Found");
+                }
+                sqlConnection.Close();
             }
         }
     }

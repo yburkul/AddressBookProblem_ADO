@@ -19,6 +19,7 @@ namespace AddressBookSystemADO
                 Console.WriteLine("5: For Edit Contact");
                 Console.WriteLine("6: For Delete The Contact");
                 Console.WriteLine("7: For Retrieve the data By using City And State");
+                Console.WriteLine("8: For Sort Contact By using City");
                 Console.WriteLine("0: For Exit");
                 option = int.Parse(Console.ReadLine());
                 switch (option)
@@ -105,6 +106,13 @@ namespace AddressBookSystemADO
                         string statename = Console.ReadLine();
                         getData.State= statename;
                         details.GetDataFromCityAndState(getData);
+                        break;
+                    case 8:
+                        AddressBook sort = new AddressBook();
+                        Console.WriteLine("Enter a City For Sort Contact");
+                        string City_name = Console.ReadLine();
+                        sort.City = City_name;
+                        details.SortContactByUsingCity(sort);
                         break;
                     case 0:
                         Console.WriteLine("Exit");
