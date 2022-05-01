@@ -149,7 +149,6 @@ namespace AddressBookSystemADO
                 return false;
             }
         }
-
         public void RemoveContact(AddressBook address)
         {
             try
@@ -173,11 +172,11 @@ namespace AddressBookSystemADO
                 Console.WriteLine(e.Message);
             }
         }
-
         public void GetDataFromCityAndState(AddressBook address)
         {
             try
             {
+                List<AddressBook> list = new List<AddressBook>();
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 using (sqlConnection)
                 {
@@ -202,8 +201,12 @@ namespace AddressBookSystemADO
                             address.Email = reader.GetString(8);
                             address.Type = reader.GetString(9);
                             address.AddressBookName = reader.GetString(10);
+                            list.Add(address);
                             Console.WriteLine(address.ID + "," + address.First_Name + "," + address.Last_Name + "," + address.Address + "," + address.City + ","
                                 + address.State + "," + address.Zip + "," + address.PhoneNumber + "," + address.Email + "," + address.Type + "," + address.AddressBookName);
+                            Console.WriteLine("Count the Address");
+                            Console.WriteLine(list.Count());
+
                         }
                     }
                     else

@@ -14,7 +14,7 @@ namespace AddressBookSystemADO
             {
                 Console.WriteLine("1: For Establish Connection");
                 Console.WriteLine("2: For Close Connection");
-                Console.WriteLine("3: For All Address Book Contact Details");
+                Console.WriteLine("3: For Get All Address Book Contact Details");
                 Console.WriteLine("4: For Add a Contact");
                 Console.WriteLine("5: For Edit Contact");
                 Console.WriteLine("6: For Delete The Contact");
@@ -62,10 +62,10 @@ namespace AddressBookSystemADO
                         addressBook.Email = Email;
                         Console.WriteLine("Enter a Address Book Name");
                         string AddressBookName = Console.ReadLine();
+                        addressBook.AddressBookName = AddressBookName;
                         Console.WriteLine("Enter type");
                         string type = Console.ReadLine();
-                        addressBook.Type = type;
-                        addressBook.AddressBookName = AddressBookName;
+                        addressBook.Type = type;                        
                         details.AddContact(addressBook);
                         Console.WriteLine("New Contact is Added");
                         break;
